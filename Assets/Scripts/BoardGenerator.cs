@@ -8,12 +8,41 @@ using UnityEditor;
 public class BoardGenerator : MonoBehaviour {
 
 	/// <summary>
+	/// Reference to the tile prefab for loading boards.
+	/// </summary>
+	[SerializeField] private TileController tilePrefab;
+
+	/// <summary>
+	/// Reference to the current board, or null if there isn't one.
+	/// </summary>
+	private BoardController board;
+
+	/// <summary>
 	/// Generates a new board.
 	/// </summary>
 	public void GenerateBoard () {
 
+		// Base case: no tile prefab.
+		if (tilePrefab == null) {
+			Debug.LogError ("Missing reference to tile prefab.");
+			return;
+		}
+		
+		// Delete the old board object.
+		if (board != null) {
+			GameObject.DestroyImmediate (board.gameObject);
+		}
+
 		// Construct a board definition.
 		BoardDefinition generatedBoardDefinition = new BoardDefinition (20, 20);
+
+		// Construct the board GameObject.
+		GameObject boardObject = new GameObject ("Generated Board");
+		boardObject.transform.SetParent (transform);
+		board = boardObject.AddComponent<BoardController> ();
+
+		// Load the tiles onto the board.
+		board.LoadBoard (generatedBoardDefinition, tilePrefab);
 	}
 }
 
@@ -47,7 +76,7 @@ public class BoardGeneratorControls : Editor {
 
 		// Draw the button to generate a new board.
 		if (GUILayout.Button ("Generate Board")) {
-			Debug.LogError ("Not implemented yet.");
+			generator.GenerateBoard ();
 		}
 	}
 }

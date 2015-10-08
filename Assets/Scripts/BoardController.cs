@@ -53,4 +53,11 @@ public class BoardController : MonoBehaviour {
 	/// Reference to the definition for this board.
 	/// </summary>
 	private BoardDefinition definition;
+
+	/// <summary>
+	/// Loads the board given the definition and the tile prefab.
+	/// </summary>
+	/// <param name="definition">Definition.</param>
+	public void LoadBoard (BoardDefinition definition, TileController tile) {
+	}
 }
