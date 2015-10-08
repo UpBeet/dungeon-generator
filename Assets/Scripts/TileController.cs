@@ -16,13 +16,19 @@ public class Tile {
 	public int Y { get; private set; }
 
 	/// <summary>
+	/// If set to true, this tile does not have an established definition.
+	/// </summary>
+	public bool Empty { get; private set; }
+
+	/// <summary>
 	/// Instantiates a new Tile object.
 	/// </summary>
 	/// <param name="x">The X coordinate of the tile.</param>
 	/// <param name="y">The Y coordinate of the tile.</param>
-	public Tile (int x, int y) {
+	public Tile (int x, int y, bool empty) {
 		this.X = x;
 		this.Y = y;
+		this.Empty = empty;
 	}
 }
 
@@ -42,6 +48,11 @@ public class TileController : MonoBehaviour {
 	/// </summary>
 	/// <value>The y.</value>
 	public int Y { get; private set; }
+
+	/// <summary>
+	/// If set to true, this tile is an empty part of the board.
+	/// </summary>
+	public bool Empty { get; private set; }
 
 	/// <summary>
 	/// Reference to the definition for this tile.
