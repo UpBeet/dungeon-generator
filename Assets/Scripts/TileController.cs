@@ -21,6 +21,11 @@ public class Tile {
 	public bool Empty { get; private set; }
 
 	/// <summary>
+	/// If set to true, this tile is an exit tile.
+	/// </summary>
+	public bool IsExit { get; private set; }
+
+	/// <summary>
 	/// Instantiates a new Tile object.
 	/// </summary>
 	/// <param name="x">The X coordinate of the tile.</param>
@@ -29,6 +34,7 @@ public class Tile {
 		this.X = x;
 		this.Y = y;
 		this.Empty = true;
+		this.IsExit = false;
 	}
 }
 

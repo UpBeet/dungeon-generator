@@ -18,7 +18,7 @@ public class BoardDefinition {
 	/// <summary>
 	/// Array of tile definitions.
 	/// </summary>
-	private Tile[] tiles;
+	protected Tile[] tiles;
 	
 	/// <summary>
 	/// Indexer that gets a Tile from the one-dimensional array via two-dimensional coordinates.
