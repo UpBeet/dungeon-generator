@@ -19,6 +19,22 @@ public class BoardDefinition {
 	/// Array of tile definitions.
 	/// </summary>
 	private Tile[] tiles;
+	
+	/// <summary>
+	/// Indexer that gets a Tile from the one-dimensional array via two-dimensional coordinates.
+	/// </summary>
+	/// <param name="x">The x coordinate.</param>
+	/// <param name="y">The y coordinate.</param>
+	public Tile this[int x, int y] {
+		get {
+			int index = y * this.Width + x;
+			return tiles[index];
+		}
+		set {
+			int index = y * this.Width + x;
+			tiles[index] = value;
+		}
+	}
 
 	/// <summary>
 	/// Instantiates a new BoardDefinition object.
@@ -50,6 +66,16 @@ public class BoardDefinition {
 public class BoardController : MonoBehaviour {
 
 	/// <summary>
+	/// The width of the board.
+	/// </summary>
+	public int Width { get; private set; }
+
+	/// <summary>
+	/// The height of the board.
+	/// </summary>
+	public int Height { get; private set; }
+
+	/// <summary>
 	/// Reference to the definition for this board.
 	/// </summary>
 	private BoardDefinition definition;
@@ -58,6 +84,32 @@ public class BoardController : MonoBehaviour {
 	/// Loads the board given the definition and the tile prefab.
 	/// </summary>
 	/// <param name="definition">Definition.</param>
-	public void LoadBoard (BoardDefinition definition, TileController tile) {
+	public void LoadBoard (BoardDefinition definition, TileController tilePrefab) {
+		
+		// Cache the board dimensions.
+		this.Width = definition.Width;
+		this.Height = definition.Height;
+		
+		// Instantiate new tiles layer.
+		GameObject tilesLayerObject = new GameObject ("Tiles");
+		tilesLayerObject.transform.SetParent (transform);
+		
+		// Calculate tile dimensions.
+		BoxCollider2D bounds = tilePrefab.transform.FindChild ("Sprite").GetComponent<BoxCollider2D> ();
+		float tileWidth = bounds.size.x;
+		float tileHeight = bounds.size.y;
+		
+		// Initialize the tiles on the board.
+		for (int x = 0; x < this.Width; x++) {
+			for (int y = 0; y < this.Width; y++) {
+				
+				// Instantiate tile GameObject.
+				TileController tile = Instantiate (tilePrefab) as TileController;
+				tile.transform.SetParent (tilesLayerObject.transform);
+
+				// Initialize and position the tile.
+				tile.Initialize (definition [x, y], tileWidth, tileHeight);
+			}
+		}
 	}
 }

@@ -58,4 +58,20 @@ public class TileController : MonoBehaviour {
 	/// Reference to the definition for this tile.
 	/// </summary>
 	private Tile tile;
+
+	/// <summary>
+	/// Initialize the TileController via a tile definition.
+	/// </summary>
+	/// <param name="tile">Tile.</param>
+	public void Initialize (Tile tile, float tileWidth, float tileHeight) {
+		this.tile = tile;
+		this.X = tile.X;
+		this.Y = tile.Y;
+		this.Empty = tile.Empty;
+		
+		// Position
+		float worldX = this.X * (tileWidth / 2) + this.Y * (tileWidth / 2);
+		float worldY = this.Y * (tileHeight / 2) - this.X * (tileHeight / 2);
+		transform.position = new Vector3 (worldX, worldY, 0);
+	}
 }
