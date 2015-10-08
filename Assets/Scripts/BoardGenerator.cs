@@ -6,6 +6,15 @@ using UnityEditor;
 /// generation of boards that will be sent to the client.
 /// </summary>
 public class BoardGenerator : MonoBehaviour {
+
+	/// <summary>
+	/// Generates a new board.
+	/// </summary>
+	public void GenerateBoard () {
+
+		// Construct a board definition.
+		BoardDefinition generatedBoardDefinition = new BoardDefinition (20, 20);
+	}
 }
 
 /// <summary>
