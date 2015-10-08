@@ -25,10 +25,10 @@ public class Tile {
 	/// </summary>
 	/// <param name="x">The X coordinate of the tile.</param>
 	/// <param name="y">The Y coordinate of the tile.</param>
-	public Tile (int x, int y, bool empty) {
+	public Tile (int x, int y) {
 		this.X = x;
 		this.Y = y;
-		this.Empty = empty;
+		this.Empty = true;
 	}
 }
 
